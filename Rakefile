@@ -27,6 +27,18 @@ task :default => %w(test test:isolated)
   end
 end
 
+task :xtest do
+  errors = []
+  t = {
+    "activerecord" => "test_sqlite3"
+  }
+  PROJECTS.each do |project|
+    system(%(cd #{project} && #{$0} #{t[project] || "test"})) || errors << project
+  end
+  fail("Errors in #{errors.join(', ')}") unless errors.empty?
+end
+
+
 desc "Smoke-test all projects"
 task :smoke do
   (PROJECTS - %w(activerecord)).each do |project|

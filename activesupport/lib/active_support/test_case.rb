@@ -1,4 +1,4 @@
-gem 'minitest' # make sure we get the gem, not stdlib
+# gem 'minitest' # make sure we get the gem, not stdlib
 require 'minitest/unit'
 require 'active_support/testing/tagged_logging'
 require 'active_support/testing/setup_and_teardown'
@@ -17,9 +17,10 @@ rescue LoadError
 end
 
 module ActiveSupport
-  class TestCase < ::MiniTest::Unit::TestCase
-    Assertion = MiniTest::Assertion
-    alias_method :method_name, :__name__
+  class TestCase < ::Minitest::Test
+    Assertion = Minitest::Assertion
+
+    alias_method :method_name, :name
 
     $tags = {}
     def self.for_tag(tag)

@@ -47,7 +47,8 @@ class MessageVerifierTest < ActiveSupport::TestCase
   def test_alternative_serialization_method
     verifier = ActiveSupport::MessageVerifier.new("Hey, I'm a secret!", :serializer => JSONSerializer.new)
     message = verifier.generate({ :foo => 123, 'bar' => Time.utc(2010) })
-    assert_equal verifier.verify(message), { "foo" => 123, "bar" => "2010-01-01T00:00:00Z" }
+    exp = { "foo" => 123, "bar" => "2010-01-01T00:00:00Z" }
+    assert_equal exp, verifier.verify(message)
   end
   
   def assert_not_verified(message)

@@ -68,7 +68,7 @@ module ActiveSupport
         end
       end
 
-      def run(runner)
+      def xrun(runner)
         _run_class_setup
 
         serialized = run_in_isolation do |isolated_runner|

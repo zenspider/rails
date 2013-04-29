@@ -211,7 +211,7 @@ module ActionView
       alias_method :_view, :view
 
       INTERNAL_IVARS = [
-        :@__name__,
+        :@name,
         :@__io__,
         :@_assertion_wrapped,
         :@_assertions,
