@@ -181,7 +181,11 @@ class TestJSONEncoding < ActiveSupport::TestCase
   end
 
   def test_hash_with_time_to_json
+    prev = ActiveSupport.use_standard_json_time_format
+    ActiveSupport.use_standard_json_time_format = false
     assert_equal '{"time":"2009/01/01 00:00:00 +0000"}', { :time => Time.utc(2009) }.to_json
+  ensure
+    ActiveSupport.use_standard_json_time_format = prev
   end
 
   def test_nested_hash_with_float
