@@ -68,7 +68,7 @@ module ActiveSupport
         end
       end
 
-      def xrun(runner)
+      def xrun(runner) # HACK - This whole thing needs overhaul
         _run_class_setup
 
         serialized = run_in_isolation do |isolated_runner|

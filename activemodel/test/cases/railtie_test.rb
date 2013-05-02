@@ -9,7 +9,7 @@ class RailtieTest < ActiveModel::TestCase
 
     @app ||= Class.new(::Rails::Application) do
       config.eager_load = false
-      # HACK config.logger = Logger.new(STDOUT)
+      # config.logger = Logger.new(STDOUT) - HACK spews EVERYWHERE
     end
   end
 
