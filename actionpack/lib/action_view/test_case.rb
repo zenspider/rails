@@ -212,6 +212,8 @@ module ActionView
 
       INTERNAL_IVARS = [
         :@name,
+        :@failures,
+        :@assertions,
         :@__io__,
         :@_assertion_wrapped,
         :@_assertions,
