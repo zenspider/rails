@@ -1,21 +1,43 @@
 require 'active_support/core_ext/string/output_safety'
+require "forwardable"
 
 module ActionView
-  class OutputBuffer < ActiveSupport::SafeBuffer #:nodoc:
-    def initialize(*)
-      super
-      encode!
+  class OutputBuffer #:nodoc:
+    extend Forwardable
+
+    def_delegator :@buffer, :encoding
+    def_delegator :@buffer, :force_encoding
+
+    def initialize(s="")
+      @buffer = s
+    end
+
+    def html_safe?
+      true
+    end
+
+    def html_safe
+      self
+    end
+
+    def presence
+      return self if @buffer.presence
+      false
+    end
+
+    def to_s
+      @buffer.html_safe
     end
 
     def <<(value)
       return self if value.nil?
-      super(value.to_s)
+      @buffer << ERB::Util.h(value)
     end
     alias :append= :<<
 
     def safe_concat(value)
       return self if value.nil?
-      super(value.to_s)
+      @buffer << value
     end
     alias :safe_append= :safe_concat
   end

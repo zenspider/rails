@@ -243,9 +243,7 @@ module ActionDispatch # :nodoc:
     end
 
     def body_parts
-      parts = []
-      @stream.each { |x| parts << x }
-      parts
+      @stream.map(&:to_s)
     end
 
     def set_cookie(key, value)
